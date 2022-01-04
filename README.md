@@ -1,2 +1,2 @@
-# p5-test
+# p5-fireworks
 Live site: https://filipghorbani.github.io/p5-test/
