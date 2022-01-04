@@ -4,13 +4,16 @@ let gravity;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   stroke(255);
+  colorMode(HSB);
   strokeWeight(4);
   gravity = createVector(0, 0.2)
   
 }
 
 function draw() {
-  background(0);
+
+    colorMode(RGB);
+    background(0, 0, 0, 60);
 
   if( random(1) < 0.1) {
     fireworks.push(new Firework());
@@ -26,21 +29,21 @@ function draw() {
 
 
 
-function Particle(x, y, isParticle) {
+function Particle(x, y, isParticle, r,g,b) {
     this.isParticle = isParticle;
     this.pos = createVector(x,y);
     if(this.isParticle) {
         this.vel = p5.Vector.random2D();
-        this.vel.mult(random(0, 7));
+        this.vel.mult(random(0, 10));
     } else {
-        this.vel = createVector(random(-2,2),random(-7,-25));
+        this.vel = createVector(random(-5,5),random(-7,-25));
     }
     this.acc = createVector(0,0);
     this.exploded = false;
     this.lifespan = random(200, 900);
-    this.r = random(255);
-    this.g = random(255);
-    this.b = random(255);
+    this.r = r ?? random(255);
+    this.g = g ?? random(255);
+    this.b = b ?? random(255);
 
     this.applyForce = function() {
         this.acc.add(gravity);
@@ -51,9 +54,9 @@ function Particle(x, y, isParticle) {
         this.pos.add(this.vel);
         this.acc.mult(0);
         if(isParticle)
-            this.lifespan -= 9;
+            this.lifespan -= 20;
 
-        if(!this.isParticle && this.vel.y >= 0)
+        if(!this.isParticle && this.vel.y >= random(-2, 7))
             this.exploded = true;
         if(this.isParticle && this.lifespan <= 0) 
             this.exploded = true;
@@ -61,7 +64,6 @@ function Particle(x, y, isParticle) {
 
     this.show = function() {
         stroke(this.r,this.g,this.b);
-        //stroke(this.lifespan);
         strokeWeight(this.lifespan/100);
         point(this.pos.x, this.pos.y);
     }
@@ -77,7 +79,7 @@ function Firework() {
             this.firework.update();
 
             if(this.firework.exploded) {
-                for (let i = 0; i < 50; i++) {
+                for (let i = 0; i < this.firework.lifespan/10; i++) {
                     this.particles.push(new Particle(this.firework.pos.x, this.firework.pos.y, true));
                 }
             }
