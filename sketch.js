@@ -10,6 +10,10 @@ function setup() {
   
 }
 
+function windowResized() { 
+    setup();
+}
+
 function draw() {
 
     colorMode(RGB);
