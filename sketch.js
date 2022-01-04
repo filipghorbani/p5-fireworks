@@ -11,7 +11,7 @@ function setup() {
 }
 
 function windowResized() { 
-    setup();
+    resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
