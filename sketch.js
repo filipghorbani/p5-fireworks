@@ -15,6 +15,7 @@ function windowResized() {
 }
 
 function draw() {
+    console.log(fireworks.length);
 
     colorMode(RGB);
     background(0, 0, 0, 60);
@@ -76,6 +77,7 @@ function Particle(x, y, isParticle, r,g,b) {
 function Firework() {
     this.particles = [];
     this.firework = new Particle(random(0, windowWidth),windowHeight, false);
+    this.done = false;
 
     this.update = function() {
         if(!this.firework.exploded) {
@@ -84,10 +86,16 @@ function Firework() {
 
             if(this.firework.exploded) {
                 for (let i = 0; i < this.firework.lifespan/10; i++) {
-                    this.particles.push(new Particle(this.firework.pos.x, this.firework.pos.y, true));
+                    if(random(1) < 0.5)
+                        this.particles.push(new Particle(this.firework.pos.x, this.firework.pos.y, true, this.firework.r, this.firework.g, this.firework.b));
+                    else
+                        this.particles.push(new Particle(this.firework.pos.x, this.firework.pos.y, true));
                 }
             }
         } else {
+            if(this.particles.length == 0) {
+                this.done = true;
+            }
             this.particles.forEach((particle, index) => {
                 particle.applyForce();
                 particle.update();
