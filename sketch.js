@@ -2,7 +2,7 @@ const fireworks = [];
 let gravity;
 
 function setup() {  
-    pixelDensity(1)
+    pixelDensity(1);
     createCanvas(windowWidth, windowHeight);
     stroke(255);
     colorMode(HSB);
