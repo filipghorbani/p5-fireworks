@@ -1,13 +1,13 @@
 const fireworks = [];
 let gravity;
 
-function setup() {
-  createCanvas(windowWidth, windowHeight);
-  stroke(255);
-  colorMode(HSB);
-  strokeWeight(4);
-  gravity = createVector(0, 0.2)
-  
+function setup() {  
+    pixelDensity(1)
+    createCanvas(windowWidth, windowHeight);
+    stroke(255);
+    colorMode(HSB);
+    strokeWeight(4);
+    gravity = createVector(0, 0.2)
 }
 
 function windowResized() { 
